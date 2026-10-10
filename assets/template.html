@@ -54,6 +54,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #bgVid{position:fixed;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;pointer-events:none;opacity:0;filter:brightness(.55);transition:opacity 1.2s var(--ease-out)}
 #bgVid.vis{opacity:.35}
 .rm #bgVid{display:none}
+#contentVid{position:fixed;inset:0;z-index:1;width:100%;height:100%;object-fit:cover;pointer-events:none;opacity:0;filter:brightness(.48) saturate(1.12) contrast(1.12);transform:scale(1.035);transition:opacity 1s var(--ease-out);will-change:opacity,transform,filter}
+#contentVid.vis{opacity:.55}
+.rm #contentVid{display:none}
 
 /* ---- VHS ---- */
 .vhs{position:fixed;inset:0;z-index:45;pointer-events:none;mix-blend-mode:screen;overflow:hidden}
@@ -93,7 +96,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #menu small{font-family:var(--mono);font-size:12px;opacity:.7}
 
 /* ================= Hero ================= */
-.hero{position:relative;z-index:1;height:470vh;height:470svh}
+.hero{position:relative;z-index:1;height:440vh;height:440svh}
 .pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 .stage{position:absolute;inset:0;background:var(--off);overflow:hidden}
 .layer{position:absolute;inset:0;will-change:transform,opacity}
@@ -114,6 +117,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 @keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
 
 .hero-copy{position:absolute;z-index:5;left:var(--pad);right:var(--pad);bottom:calc(15svh + var(--sab));opacity:0;color:var(--ink)}
+.hero-logos{display:flex;align-items:center;gap:11px;margin-bottom:14px}
+.hero-logo{display:grid;place-items:center;width:54px;height:54px;flex:0 0 54px;overflow:hidden;border:1px solid rgba(232,213,160,.76);border-radius:50%;color:var(--gold-hi);background:radial-gradient(circle,rgba(200,169,106,.16),rgba(5,5,5,.32) 70%);box-shadow:0 0 0 4px rgba(200,169,106,.08),0 0 24px rgba(200,169,106,.22);font-family:var(--mono);font-size:10px;letter-spacing:.06em}
+.hero-logo img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%}
+.hero-logo.assoc{padding:3px;background:rgba(242,242,240,.94);border-color:rgba(242,242,240,.7);box-shadow:0 0 0 4px rgba(242,242,240,.06),0 0 22px rgba(242,242,240,.2)}
 .hero-copy h1{font-family:var(--serif);font-weight:300;font-size:clamp(3.4rem,17vw,5rem);line-height:.94;letter-spacing:-.015em}
 .hero-copy .sub{font-family:var(--mono);font-size:13px;margin-top:14px}
 .hero-copy .tag{font-family:var(--serif);font-style:italic;font-weight:300;font-size:1.5rem;margin-top:22px;line-height:1.2}
@@ -128,7 +135,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #line2{bottom:calc(22svh + var(--sab));font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(2.2rem,9vw,3.4rem);color:var(--ink);text-shadow:0 0 28px rgba(0,0,0,.65),0 0 6px rgba(0,0,0,.4)}
 #line3{bottom:calc(27svh + var(--sab));color:var(--ink)}
 #line3 p{font-family:var(--serif);font-weight:400;font-size:clamp(2.1rem,8.5vw,3.2rem);line-height:1.1}
-#line3 .acts{display:flex;justify-content:center;gap:26px;margin-top:18px;font-size:14px;font-weight:500}
+#line3 .acts{display:flex;justify-content:center;gap:16px;margin-top:20px;font-size:14px;font-weight:500}
+#line3 .acts a{display:inline-flex;align-items:center;justify-content:center;width:104px;aspect-ratio:1;border:1px solid rgba(242,242,240,.62);border-radius:50%;padding:12px;text-align:center;font-family:var(--mono);font-size:11.5px;line-height:1.35;letter-spacing:.02em;background:rgba(5,5,5,.32);transition:color .35s,border-color .35s,background-color .35s,box-shadow .35s,transform .35s var(--ease-out)}
+#line3 .acts a:hover{color:var(--gold-hi);border-color:var(--gold-hi);background:rgba(200,169,106,.08);box-shadow:0 0 18px rgba(232,213,160,.3),inset 0 0 16px rgba(232,213,160,.08);transform:translateY(-3px)}
+@media(max-width:520px){#line3 .acts{gap:12px}#line3 .acts a{width:92px}}
 .prog{position:absolute;z-index:6;top:50%;right:max(16px,env(safe-area-inset-right));height:30svh;width:9px;transform:translateY(-50%);color:var(--ink);transition:color var(--d-1)}
 .prog .rail{position:absolute;left:4px;top:0;bottom:0;width:1px;background:currentColor;opacity:.3}
 .prog .fill{position:absolute;left:4px;top:0;bottom:0;width:1px;background:var(--gold);transform:scaleY(0);transform-origin:top}
@@ -151,10 +161,21 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .rm .hero{height:100svh}.rm .pin{position:relative}
 .rm .hero-copy,.rm .hero-meta{opacity:1!important}
 .rm .shade,.rm .grain,.rm .cue,.rm .prog,.rm #L1,.rm .vig{display:none}
-.rm #L2{opacity:1}.rm #line3{opacity:1;pointer-events:auto}
+.rm #L2{opacity:0!important}.rm .void-glow{opacity:1;transition:none}.rm #line3{opacity:1;pointer-events:auto}
 
 /* ================= Dark content sections ================= */
-.content{position:relative;z-index:2;color:var(--ink)}
+/* ---- Dotted gold starfield for dark scenes ---- */
+.space-dots{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.36;
+  background-image:radial-gradient(circle at 18px 24px,rgba(232,213,160,.86) 0 1px,rgba(200,169,106,.22) 1.5px,transparent 4px),radial-gradient(circle at 61px 69px,rgba(242,242,240,.48) 0 .75px,rgba(200,169,106,.12) 1.5px,transparent 3.5px),radial-gradient(ellipse at 73% 32%,rgba(200,169,106,.1),transparent 45%);
+  background-size:88px 88px,143px 143px,100% 100%;background-position:0 0,17px 31px,0 0;background-repeat:repeat,repeat,no-repeat}
+.content{position:relative;z-index:2;color:var(--ink);
+  background-image:radial-gradient(circle at 20px 26px,rgba(200,169,106,.62) 0 .9px,rgba(200,169,106,.16) 1.5px,transparent 3.5px),radial-gradient(circle at 67px 73px,rgba(242,242,240,.32) 0 .7px,rgba(200,169,106,.1) 1.4px,transparent 3px),radial-gradient(ellipse at 50% 0,rgba(200,169,106,.055),transparent 62%);
+  background-size:92px 92px,151px 151px,100% 78vh;background-position:0 0,29px 19px,50% 0;background-repeat:repeat,repeat,no-repeat}
+@media(max-width:700px){.space-dots{opacity:.3;background-size:72px 82px,113px 127px,100% 100%}}
+.void-glow{position:absolute;inset:0;z-index:4;pointer-events:none;opacity:0;transition:opacity var(--d-2) var(--ease-out);background:radial-gradient(ellipse at 50% 53%,rgba(242,242,240,.15) 0,rgba(242,242,240,.07) 5%,transparent 20%)}
+.void-glow::before{content:"";position:absolute;left:50%;top:53%;width:min(74vw,860px);height:min(31vw,360px);transform:translate(-50%,-50%) rotate(-8deg);border:1px solid rgba(242,242,240,.76);border-radius:50%;box-shadow:0 0 10px rgba(242,242,240,.68),0 0 30px rgba(242,242,240,.32),inset 0 0 22px rgba(242,242,240,.12);filter:blur(.55px)}
+.void-glow::after{content:"";position:absolute;left:50%;top:53%;width:min(54vw,620px);height:min(16vw,180px);transform:translate(-50%,-50%) rotate(-8deg);border-radius:50%;background:radial-gradient(ellipse,rgba(242,242,240,.19),rgba(242,242,240,.06) 44%,transparent 76%);filter:blur(18px)}
+@media(max-width:700px){.void-glow::before{width:88vw;height:40vw}.void-glow::after{width:70vw;height:28vw}}
 .wrap{max-width:1200px;margin:0 auto;padding:0 var(--pad)}
 section.s{position:relative;padding:clamp(88px,13vw,168px) 0 0}
 .lead{position:absolute;top:0;left:50%;width:1px;height:20svh;background:linear-gradient(to bottom,var(--gold),var(--gold-hi));box-shadow:var(--glow-sm);transform:scaleY(0);transform-origin:top;transition:transform 1.4s var(--ease-io)}
@@ -383,6 +404,9 @@ footer .fine .draw{position:absolute;left:0;right:0;top:0}
   <source src="assets/black_hole_ship_9x16.mp4" type="video/mp4">
 </video>
 
+<video id="contentVid" muted playsinline preload="auto" aria-hidden="true">
+  <source src="assets/scroll-background.mp4" type="video/mp4">
+</video>
 <div class="vhs" id="vhs" aria-hidden="true"><i class="b"></i><i class="b"></i><i class="b"></i><i class="trk" id="trk"></i></div>
 
 <!-- Shooting star element (reused) -->
@@ -416,10 +440,16 @@ footer .fine .draw{position:absolute;left:0;right:0;top:0}
       </video>
       <div class="vig" id="vig"></div>
       <div class="shade" id="shade"></div>
+      <div class='space-dots' aria-hidden='true'></div>
+      <div class="void-glow" id="voidGlow" aria-hidden="true"></div>
     </div>
     <div class="grain" id="grain"></div>
 
     <div class="hero-copy" id="copy">
+<div class="hero-logos">
+  <span class="hero-logo" role="img" aria-label="MITE college logo placeholder">MITE</span>
+  <span class="hero-logo assoc"><img src="assets/artifera_logo.jpeg" alt="Artifera logo"></span>
+</div>
       <h1>AI VibeX 1.0</h1>
       <p class="sub">Hackathon 2026</p>
       <p class="tag">Build. Vibe. Innovate.</p>
@@ -428,7 +458,7 @@ footer .fine .draw{position:absolute;left:0;right:0;top:0}
     <div class="hero-meta" id="meta"><span>Presented by</span>AIML Department<br>Mangalore Institute of Technology &amp; Engineering</div>
 
     <div class="line" id="line2">Step inside.</div>
-    <div class="line" id="line3"><p>Find your team.</p><div class="acts"><a class="ul" href="#register">Register</a><a class="ul" href="#timeline">View timeline</a></div></div>
+    <div class="line" id="line3"><p>Find your team.</p><div class="acts"><a class="hero-cta" href="#register">Register</a><a class="hero-cta" href="#timeline">View timeline</a></div></div>
 
     <div class="cue" id="cue"><span>Scroll</span><i></i></div>
     <div class="prog" id="prog" aria-hidden="true"><div class="rail"></div><div class="fill" id="pfill"></div><b></b><b></b><b></b></div>
@@ -526,7 +556,51 @@ footer .fine .draw{position:absolute;left:0;right:0;top:0}
   </div>
   <div class="teams" id="teams" style="--n:6">
     <div class="tpin">
-      <div class="track" id="track"><div class="panel"><div class="pn"><div class="ptext"><h3>Leadership</h3><p>The faculty and head coordinator steering AI VibeX 1.0.</p><span class="gl"></span></div><div class="pcards wide" style="--c:2"><article class="card" style="--d:0.00s"><div class="ph"><span class="ini" aria-hidden="true">SK</span><span class="role">HOD</span><div class="li"></div></div><h4>Dr. Sunil Kumar S</h4><p class="rt">Head of Department</p><p class="sr">Dept of AIML, MITE</p></article><article class="card" style="--d:0.12s"><div class="ph"><span class="ini" aria-hidden="true">MP</span><span class="role">Lead</span><div class="li"><a class="ul" href="#" aria-label="Connect with Manjunath Prasad H. R. on LinkedIn">Connect on LinkedIn</a></div></div><h4>Manjunath Prasad H. R.</h4><p class="rt">Head Coordinator</p><p class="sr">AI VibeX Organizing Lead</p></article></div></div></div><div class="panel"><div class="pn"><div class="ptext long"><h3>Head Coordinators &amp; Organizing Committee</h3><p>The people who run the day on the ground.</p><span class="gl"></span></div><div class="pcards dense" style="--c:3"><article class="card" style="--d:0.00s"><div class="ph"><span class="ini" aria-hidden="true">SN</span><span class="role">Lead</span><div class="li"><a class="ul" href="#" aria-label="Connect with Sudeep U Nayak on LinkedIn">Connect on LinkedIn</a></div></div><h4>Sudeep U Nayak</h4><p class="rt">Lead Coordinator</p><p class="sr">Organizing Committee</p></article><article class="card" style="--d:0.12s"><div class="ph"><span class="ini" aria-hidden="true">RA</span><span class="role">Coordinator</span><div class="li"><a class="ul" href="#" aria-label="Connect with Rachith R Amin on LinkedIn">Connect on LinkedIn</a></div></div><h4>Rachith R Amin</h4><p class="rt">Coordinator</p><p class="sr">Organizing Committee</p></article><article class="card" style="--d:0.24s"><div class="ph"><span class="ini" aria-hidden="true">S</span><span class="role">Coordinator</span><div class="li"><a class="ul" href="#" aria-label="Connect with Savin on LinkedIn">Connect on LinkedIn</a></div></div><h4>Savin</h4><p class="rt">Coordinator</p><p class="sr">Organizing Committee</p></article><article class="card" style="--d:0.36s"><div class="ph"><span class="ini" aria-hidden="true">JJ</span><span class="role">Coordinator</span><div class="li"><a class="ul" href="#" aria-label="Connect with Jestin Jimmy on LinkedIn">Connect on LinkedIn</a></div></div><h4>Jestin Jimmy</h4><p class="rt">Coordinator</p><p class="sr">Organizing Committee</p></article><article class="card" style="--d:0.48s"><div class="ph"><span class="ini" aria-hidden="true">LD</span><span class="role">Coordinator</span><div class="li"><a class="ul" href="#" aria-label="Connect with Lloyd Dsouza on LinkedIn">Connect on LinkedIn</a></div></div><h4>Lloyd Dsouza</h4><p class="rt">Coordinator</p><p class="sr">Organizing Committee</p></article><article class="card" style="--d:0.60s"><div class="ph"><span class="ini" aria-hidden="true">AP</span><span class="role">Coordinator</span><div class="li"><a class="ul" href="#" aria-label="Connect with Alok M Poojary on LinkedIn">Connect on LinkedIn</a></div></div><h4>Alok M Poojary</h4><p class="rt">Coordinator</p><p class="sr">Organizing Committee</p></article></div></div></div><div class="panel"><div class="pn"><div class="ptext"><h3>Media Team</h3><p>Photography, video and social coverage of the sprint.</p><span class="gl"></span></div><div class="pcards " style="--c:3"><article class="card tbd" style="--d:0.00s"><div class="ph"><span class="ini" aria-hidden="true">+</span><span class="role">Lead</span><div class="li"></div></div><h4>Name to be added</h4><p class="rt">Media Lead</p><p class="sr"></p></article><article class="card tbd" style="--d:0.12s"><div class="ph"><span class="ini" aria-hidden="true">+</span><span class="role">Lead</span><div class="li"></div></div><h4>Name to be added</h4><p class="rt">Media Lead</p><p class="sr"></p></article><article class="card tbd" style="--d:0.24s"><div class="ph"><span class="ini" aria-hidden="true">+</span><span class="role">Lead</span><div class="li"></div></div><h4>Name to be added</h4><p class="rt">Media Lead</p><p class="sr"></p></article></div></div></div><div class="panel"><div class="pn"><div class="ptext long"><h3>Web Design &amp; Development</h3><p>The designers and developers behind this site.</p><span class="gl"></span></div><div class="pcards wide" style="--c:2"><article class="card" style="--d:0.00s"><div class="ph"><span class="ini" aria-hidden="true">PA</span><span class="role">Designer</span><div class="li"><a class="ul" href="#" aria-label="Connect with Preetham Acharya on LinkedIn">Connect on LinkedIn</a></div></div><h4>Preetham Acharya</h4><p class="rt">Web Designer &amp; Dev</p><p class="sr">Technical Lead</p></article><article class="card tbd" style="--d:0.12s"><div class="ph"><span class="ini" aria-hidden="true">+</span><span class="role">Dev</span><div class="li"></div></div><h4>Name to be added</h4><p class="rt">Developer</p><p class="sr"></p></article></div></div></div><div class="panel"><div class="pn"><div class="ptext long"><h3>Poster Design Team</h3><p>Posters, banners and the visual identity of the event.</p><span class="gl"></span></div><div class="pcards wide" style="--c:2"><article class="card tbd" style="--d:0.00s"><div class="ph"><span class="ini" aria-hidden="true">+</span><span class="role">Designer</span><div class="li"></div></div><h4>Name to be added</h4><p class="rt">Poster Designer</p><p class="sr"></p></article><article class="card tbd" style="--d:0.12s"><div class="ph"><span class="ini" aria-hidden="true">+</span><span class="role">Designer</span><div class="li"></div></div><h4>Name to be added</h4><p class="rt">Poster Designer</p><p class="sr"></p></article></div></div></div><div class="panel"><div class="pn"><div class="ptext"><h3>Enquiries Team</h3><p>Questions about registration or the day? Reach out.</p><div class="help"><a class="ul" href="tel:+917619246367">+91 76192 46367</a><a class="ul" href="tel:+919019672773">+91 90196 72773</a></div><span class="gl"></span></div><div class="pcards wide" style="--c:2"><article class="card tbd" style="--d:0.00s"><div class="ph"><span class="ini" aria-hidden="true">+</span><span class="role">Lead</span><div class="li"></div></div><h4>Name to be added</h4><p class="rt">Enquiries Lead</p><p class="sr"></p></article><article class="card tbd" style="--d:0.12s"><div class="ph"><span class="ini" aria-hidden="true">+</span><span class="role">Lead</span><div class="li"></div></div><h4>Name to be added</h4><p class="rt">Enquiries Lead</p><p class="sr"></p></article></div></div></div></div>
+      <div class="track" id="track">
+        <div class="panel"><div class="pn">
+          <div class="ptext"><h3>Leadership</h3><p>The faculty and head coordinator steering AI VibeX 1.0.</p><span class="gl"></span></div>
+          <div class="pcards wide" style="--c:2">
+            <article class="card" style="--d:0.00s"><div class="ph"><span class="ini" aria-hidden="true">SK</span><span class="role">HOD</span><div class="li"></div></div><h4>Dr. Sunil Kumar S</h4><p class="rt">Head of Department</p><p class="sr">Dept of AIML, MITE</p></article>
+            <article class="card" style="--d:0.12s"><div class="ph"><span class="ini" aria-hidden="true">MP</span><span class="role">Lead</span><div class="li"><a class="ul" href="#" aria-label="Connect with Manjunath Prasad H. R. on LinkedIn">Connect on LinkedIn</a></div></div><h4>Manjunath Prasad H. R.</h4><p class="rt">Head Coordinator</p><p class="sr">AI VibeX Organizing Lead</p></article>
+          </div>
+        </div></div>
+        <div class="panel"><div class="pn">
+          <div class="ptext long"><h3>Coordinator Board</h3><p>Two coordinators guiding the teams and running the event on the ground.</p><span class="gl"></span></div>
+          <div class="pcards wide" style="--c:2">
+            <article class="card" style="--d:0.00s"><div class="ph"><span class="ini" aria-hidden="true">SN</span><span class="role">Lead</span><div class="li"><a class="ul" href="#" aria-label="Connect with Sudeep U Nayak on LinkedIn">Connect on LinkedIn</a></div></div><h4>Sudeep U Nayak</h4><p class="rt">Lead Coordinator</p><p class="sr">Organizing Committee</p></article>
+            <article class="card" style="--d:0.12s"><div class="ph"><span class="ini" aria-hidden="true">RA</span><span class="role">Coordinator</span><div class="li"><a class="ul" href="#" aria-label="Connect with Rachith R Amin on LinkedIn">Connect on LinkedIn</a></div></div><h4>Rachith R Amin</h4><p class="rt">Coordinator</p><p class="sr">Organizing Committee</p></article>
+          </div>
+        </div></div>
+        <div class="panel"><div class="pn">
+          <div class="ptext"><h3>Media Team</h3><p>Photography, video and social coverage of the sprint.</p><span class="gl"></span></div>
+          <div class="pcards" style="--c:3">
+            <article class="card tbd" style="--d:0.00s"><div class="ph"><span class="ini" aria-hidden="true">+</span><span class="role">Lead</span><div class="li"></div></div><h4>Name to be added</h4><p class="rt">Media Lead</p><p class="sr"></p></article>
+            <article class="card tbd" style="--d:0.12s"><div class="ph"><span class="ini" aria-hidden="true">+</span><span class="role">Lead</span><div class="li"></div></div><h4>Name to be added</h4><p class="rt">Media Lead</p><p class="sr"></p></article>
+            <article class="card tbd" style="--d:0.24s"><div class="ph"><span class="ini" aria-hidden="true">+</span><span class="role">Lead</span><div class="li"></div></div><h4>Name to be added</h4><p class="rt">Media Lead</p><p class="sr"></p></article>
+          </div>
+        </div></div>
+        <div class="panel"><div class="pn">
+          <div class="ptext long"><h3>Web Design &amp; Development</h3><p>The designers and developers behind this site.</p><span class="gl"></span></div>
+          <div class="pcards wide" style="--c:2">
+            <article class="card" style="--d:0.00s"><div class="ph"><span class="ini" aria-hidden="true">PA</span><span class="role">Designer</span><div class="li"><a class="ul" href="#" aria-label="Connect with Preetham Acharya on LinkedIn">Connect on LinkedIn</a></div></div><h4>Preetham Acharya</h4><p class="rt">Web Designer &amp; Dev</p><p class="sr">Technical Lead</p></article>
+            <article class="card tbd" style="--d:0.12s"><div class="ph"><span class="ini" aria-hidden="true">+</span><span class="role">Dev</span><div class="li"></div></div><h4>Name to be added</h4><p class="rt">Developer</p><p class="sr"></p></article>
+          </div>
+        </div></div>
+        <div class="panel"><div class="pn">
+          <div class="ptext long"><h3>Poster Design Team</h3><p>Posters, banners and the visual identity of the event.</p><span class="gl"></span></div>
+          <div class="pcards wide" style="--c:2">
+            <article class="card tbd" style="--d:0.00s"><div class="ph"><span class="ini" aria-hidden="true">+</span><span class="role">Designer</span><div class="li"></div></div><h4>Name to be added</h4><p class="rt">Poster Designer</p><p class="sr"></p></article>
+            <article class="card tbd" style="--d:0.12s"><div class="ph"><span class="ini" aria-hidden="true">+</span><span class="role">Designer</span><div class="li"></div></div><h4>Name to be added</h4><p class="rt">Poster Designer</p><p class="sr"></p></article>
+          </div>
+        </div></div>
+        <div class="panel"><div class="pn">
+          <div class="ptext"><h3>Enquiries Team</h3><p>Questions about registration or the day? Reach out.</p><div class="help"><a class="ul" href="tel:+917619246367">+91 76192 46367</a><a class="ul" href="tel:+919019672773">+91 90196 72773</a></div><span class="gl"></span></div>
+          <div class="pcards wide" style="--c:2">
+            <article class="card tbd" style="--d:0.00s"><div class="ph"><span class="ini" aria-hidden="true">+</span><span class="role">Lead</span><div class="li"></div></div><h4>Name to be added</h4><p class="rt">Enquiries Lead</p><p class="sr"></p></article>
+            <article class="card tbd" style="--d:0.12s"><div class="ph"><span class="ini" aria-hidden="true">+</span><span class="role">Lead</span><div class="li"></div></div><h4>Name to be added</h4><p class="rt">Enquiries Lead</p><p class="sr"></p></article>
+          </div>
+        </div></div>
+      </div>
       <div class="tprog" id="tprog">
         <div class="orbit-wrap" id="orbitWrap"><svg viewBox="0 0 600 20"><path class="orbit-rail" id="orbitRail" d="M0,15 Q300,-5 600,15"/><path class="orbit-fill" id="orbitFill" d="M0,15 Q300,-5 600,15"/><circle class="craft" id="craft" cx="0" cy="15" r="3"/></svg></div>
         <button type="button" aria-label="Go to Leadership"><b></b><span>Leadership</span></button><button type="button" aria-label="Go to Organizing"><b></b><span>Organizing</span></button><button type="button" aria-label="Go to Media"><b></b><span>Media</span></button><button type="button" aria-label="Go to Web"><b></b><span>Web</span></button><button type="button" aria-label="Go to Posters"><b></b><span>Posters</span></button><button type="button" aria-label="Go to Enquiries"><b></b><span>Enquiries</span></button>
@@ -653,9 +727,10 @@ function drawScene1(){
 }
 
 /* ---------- Video scroll scrubbing ---------- */
-const heroVid=$("#heroVid"),bgVid=$("#bgVid");
-let vidReady=false,vidDuration=0;
+const heroVid=$("#heroVid"),bgVid=$("#bgVid"),contentVid=$("#contentVid"),contentRoot=$(".content");
+let vidReady=false,vidDuration=0,contentVidDuration=0;
 heroVid.addEventListener("loadedmetadata",()=>{vidDuration=heroVid.duration;vidReady=true});
+contentVid.addEventListener("loadedmetadata",()=>{contentVidDuration=Number.isFinite(contentVid.duration)?contentVid.duration:0});
 // Flash safety: clamp brightness during flash frames (first ~10% of video)
 function vidFlashFilter(vidT){
   if(!vidDuration)return"none";
@@ -672,10 +747,18 @@ function scrubVideo(p){
   heroVid.style.filter=RM?"none":vidFlashFilter(targetTime);
 }
 
+function scrubContentVideo(){
+  if(!contentVidDuration||RM)return;
+  const r=contentRoot.getBoundingClientRect(),active=r.top<innerHeight&&r.bottom>0;
+  contentVid.classList.toggle("vis",active);if(!active)return;
+  const leg=Math.max(0,-r.top)/Math.max(1,innerHeight*2.4),phase=((leg%2)+2)%2,progress=phase<=1?phase:2-phase;
+  const targetTime=Math.max(0,Math.min(contentVidDuration-.04,progress*contentVidDuration));
+  if(!contentVid.seeking&&Math.abs(contentVid.currentTime-targetTime)>.06)contentVid.currentTime=targetTime;
+}
 /* ---------- Elements ---------- */
 const hero=$("#hero"),L1=$("#L1"),L2=$("#L2"),stage=$("#stage"),copy=$("#copy"),meta=$("#meta"),cue=$("#cue"),
   l2=$("#line2"),l3=$("#line3"),prog=$("#prog"),pfill=$("#pfill"),dots=prog.querySelectorAll("b"),
-  vig=$("#vig"),shade=$("#shade"),grain=$("#grain"),hdr=$("#hdr"),vhs=$("#vhs"),
+  vig=$("#vig"),shade=$("#shade"),grain=$("#grain"),voidGlow=$("#voidGlow"),hdr=$("#hdr"),vhs=$("#vhs"),
   regEl=$("#register"),ftEl=$("#footer");
 let lastF=-1,boot=0;const t0=performance.now();
 
@@ -685,11 +768,11 @@ function applyHero(p,now){
   copy.style.opacity=co;copy.style.transform="translateY("+(-14*sm(.14,.26,p))+"px)";meta.style.opacity=co;
   cue.style.opacity=boot*(1-sm(.03,.1,p));
   const z=sm(.15,.45,p);L1.style.transform="scale("+Math.exp(Math.log(8)*z).toFixed(4)+")";L1.style.opacity=1-sm(.38,.45,p);
-  const o2=sm(.34,.45,p),push=1+.1*sm(.45,.70,p)-.1*sm(.70,.96,p);
-  L2.style.opacity=o2;L2.style.transform="scale("+(lerp(1.4,1,o2)*push).toFixed(4)+")";
+  const o2=sm(.34,.45,p)*(1-sm(.68,.76,p)),push=1+.1*sm(.45,.70,p)-.1*sm(.70,.96,p);
+  L2.style.opacity=o2;L2.style.transform="scale("+(lerp(1.4,1,o2)*push).toFixed(4)+")";voidGlow.style.opacity=sm(.68,.76,p);
   const f=frameAt(p);if(Math.abs(f-lastF)>.005||dirty){drawTo(g2,f);lastF=f;dirty=false}
   const a2=sm(.5,.57,p)*(1-sm(.66,.72,p));l2.style.opacity=a2;l2.style.translate="0 "+((1-sm(.5,.57,p))*14)+"px";
-  const a3=sm(.9,.97,p);l3.style.opacity=a3;l3.style.pointerEvents=a3>.6?"auto":"none";l3.style.translate="0 "+((1-a3)*14)+"px";
+  const a3=sm(.73,.81,p);l3.style.opacity=a3;l3.style.pointerEvents=a3>.6?"auto":"none";l3.style.translate="0 "+((1-a3)*18)+"px";l3.style.scale=(.9+.1*a3).toFixed(3);
   // Video takes over at 70%
   const vidFade=sm(.68,.74,p);
   heroVid.style.opacity=vidFade;
@@ -875,7 +958,7 @@ function target(){const total=hero.offsetHeight-innerHeight,r=hero.getBoundingCl
 function tick(now){
   const dt=Math.min(.06,(now-last)/1000);last=now;
   const p=target();ps+=(p-ps)*(1-Math.exp(-dt*9));if(Math.abs(p-ps)<.0004)ps=p;
-  applyHero(ps,now);
+  applyHero(ps,now);scrubContentVideo();
   // Pointer parallax on stage
   if(DESK&&!RM){
     const px=mx*4,py=my*3;
